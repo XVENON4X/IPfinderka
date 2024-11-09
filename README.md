@@ -8,7 +8,7 @@ Wprowadź poniżej nick do wyszukania w pliku `0001.txt`.
 <pre id="results" style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 20px; max-height: 300px; overflow-y: auto;"></pre>
 
 <script>
-// Funkcja do wyszukiwania w pliku 0001.txt
+// Funkcja do wyszukiwania w pliku 0001.txt z GitHuba
 async function searchInFile() {
     const searchTerm = document.getElementById('searchTerm').value.trim();
     const resultsArea = document.getElementById('results');
@@ -20,8 +20,8 @@ async function searchInFile() {
     }
 
     try {
-        // Wczytywanie zawartości pliku 0001.txt z repozytorium
-        const response = await fetch('0001.txt');
+        // Wczytywanie zawartości pliku z linku raw.githubusercontent.com
+        const response = await fetch('https://raw.githubusercontent.com/XVENON4X/IPfinderka/refs/heads/main/0001.txt');
         
         if (!response.ok) {
             resultsArea.textContent = "Nie można otworzyć pliku 0001.txt";
@@ -32,8 +32,13 @@ async function searchInFile() {
         const lines = fileContent.split('\n');
         let found = false;
 
+        // Debugowanie: pokaż zawartość pliku w konsoli
+        console.log("Plik wczytany pomyślnie:");
+        console.log(fileContent);
+
         // Przeszukiwanie pliku
         lines.forEach((line, index) => {
+            console.log(`Sprawdzam linię ${index + 1}: ${line}`); // Debugowanie: pokaż każdą linię
             if (line.toLowerCase().includes(searchTerm.toLowerCase())) {
                 resultsArea.textContent += `Linia ${index + 1}: ${line}\n`;
                 found = true;
