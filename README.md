@@ -1,4 +1,4 @@
-# IP Finder by VENOM.1.3
+# IP Finder by VENOM1.4
 
 Wprowadź poniżej nick do wyszukania w pliku `0001.txt`.
 
@@ -32,15 +32,13 @@ async function searchInFile() {
         const lines = fileContent.split('\n');
         let found = false;
 
-        // Optymalizacja wyszukiwania: Przerwij po znalezieniu pierwszego dopasowania
-        for (let index = 0; index < lines.length; index++) {
-            const line = lines[index];
+        // Przeszukiwanie całego pliku i wyświetlanie wszystkich dopasowań
+        lines.forEach((line, index) => {
             if (line.toLowerCase().includes(searchTerm.toLowerCase())) {
-                resultsArea.textContent = `Linia ${index + 1}: ${line}`;
+                resultsArea.textContent += `Linia ${index + 1}: ${line}\n`;
                 found = true;
-                break; // Przerwij pętlę po znalezieniu
             }
-        }
+        });
 
         if (!found) {
             resultsArea.textContent = "Nie znaleziono takiego nicku.";
