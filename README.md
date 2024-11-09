@@ -1,13 +1,43 @@
-# IP Finder by VENOM1.4
+# IP Finder by VENOM1.5
 
-Wprowadź poniżej nick do wyszukania w pliku `0001.txt`.
+## Logowanie
+<input type="password" id="password" placeholder="Wpisz hasło..." style="width: 300px; padding: 5px; margin-top: 10px;">
+<button onclick="login()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Zaloguj się</button>
 
-<input type="text" id="searchTerm" placeholder="Wpisz nick..." style="width: 300px; padding: 5px; margin-top: 10px;">
-<button onclick="searchInFile()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Wyszukaj w pliku</button>
+<div id="searchSection" style="display: none;">
+    <h3>Wyszukaj nick:</h3>
+    <input type="text" id="searchTerm" placeholder="Wpisz nick..." style="width: 300px; padding: 5px; margin-top: 10px;">
+    <button onclick="searchInFile()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Wyszukaj w pliku</button>
 
-<pre id="results" style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 20px; max-height: 300px; overflow-y: auto;"></pre>
+    <pre id="results" style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 20px; max-height: 300px; overflow-y: auto;"></pre>
+</div>
 
 <script>
+// Zaszyfrowane hasło dla "pozdro213" (SHA-256)
+const encryptedPassword = "d249ef35f662a345fbe1bdf8d730c81ff18382c8d45014478770d199b29780d3";
+
+// Funkcja haszująca dla porównania hasła
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Funkcja logowania
+async function login() {
+    const password = document.getElementById('password').value;
+    const hashedInput = await hashPassword(password);
+
+    if (hashedInput === encryptedPassword) {
+        alert("Zalogowano pomyślnie!");
+        document.getElementById('searchSection').style.display = 'block';
+    } else {
+        alert("Błędne hasło!");
+    }
+}
+
 // Funkcja do wyszukiwania w pliku 0001.txt z GitHuba
 async function searchInFile() {
     const searchTerm = document.getElementById('searchTerm').value.trim();
