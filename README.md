@@ -1,4 +1,4 @@
-# IP Finder by VENOM1.8
+# IP Finder by VENOM
 
 ## Logowanie
 <input type="password" id="password" placeholder="Wpisz hasło..." style="width: 300px; padding: 5px; margin-top: 10px;">
@@ -13,7 +13,8 @@
 </div>
 
 <script>
-const encryptedPassword = "34cd46e62013e348841aefceed803cc6918c4b835137ecbb5fa66b3726d0af2b"; // Upewnij się, że jest to poprawny hash
+// Wprowadź tutaj poprawny hash, który wygenerowałeś dla hasła "pozdro213"
+const encryptedPassword = "TWOJ_WYGENEROWANY_HASH_TUTAJ"; // Upewnij się, że jest to poprawny hash
 
 async function hashPassword(password) {
     const encoder = new TextEncoder();
