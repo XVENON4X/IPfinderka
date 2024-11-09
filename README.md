@@ -20,8 +20,8 @@ async function searchInFile() {
     }
 
     try {
-        // Wczytywanie zawartości pliku z linku raw.githubusercontent.com
-        const response = await fetch('https://raw.githubusercontent.com/XVENON4X/IPfinderka/refs/heads/main/0001.txt');
+        // Wczytywanie zawartości pliku z cache
+        const response = await fetch('https://raw.githubusercontent.com/XVENON4X/IPfinderka/refs/heads/main/0001.txt', { cache: 'force-cache' });
         
         if (!response.ok) {
             resultsArea.textContent = "Nie można otworzyć pliku 0001.txt";
@@ -32,18 +32,15 @@ async function searchInFile() {
         const lines = fileContent.split('\n');
         let found = false;
 
-        // Debugowanie: pokaż zawartość pliku w konsoli
-        console.log("Plik wczytany pomyślnie:");
-        console.log(fileContent);
-
-        // Przeszukiwanie pliku
-        lines.forEach((line, index) => {
-            console.log(`Sprawdzam linię ${index + 1}: ${line}`); // Debugowanie: pokaż każdą linię
+        // Optymalizacja wyszukiwania: Przerwij po znalezieniu pierwszego dopasowania
+        for (let index = 0; index < lines.length; index++) {
+            const line = lines[index];
             if (line.toLowerCase().includes(searchTerm.toLowerCase())) {
-                resultsArea.textContent += `Linia ${index + 1}: ${line}\n`;
+                resultsArea.textContent = `Linia ${index + 1}: ${line}`;
                 found = true;
+                break; // Przerwij pętlę po znalezieniu
             }
-        });
+        }
 
         if (!found) {
             resultsArea.textContent = "Nie znaleziono takiego nicku.";
