@@ -1,4 +1,4 @@
-# IP Finder by VENOM
+# IP Finder by VENOM.1.3
 
 Wprowadź poniżej nick do wyszukania w pliku `0001.txt`.
 
