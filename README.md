@@ -13,7 +13,6 @@
 </div>
 
 <script>
-// Wprowadź tutaj poprawny hash, który wygenerowałeś dla hasła "pozdro213"
 const encryptedPassword = "34cd46e62013e348841aefceed803cc6918c4b835137ecbb5fa66b3726d0af2b"; // Upewnij się, że jest to poprawny hash
 
 async function hashPassword(password) {
