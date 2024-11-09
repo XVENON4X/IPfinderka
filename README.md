@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XOR Encryption in JavaScript</title>
-</head>
-<body>
-    <h1>Szyfrowanie XOR w JavaScript</h1>
-    <p id="encrypted">Zaszyfrowane dane: <span id="encrypted-text"></span></p>
-    <p id="decrypted">Deszyfrowane dane: <span id="decrypted-text"></span></p>
+# IP Finder by VENOM1.8
 
-    <script>
-        // Funkcja szyfrowania / deszyfrowania XOR
-        function xorEncryptDecrypt(data, key) {
-            let result = '';
-            for (let i = 0; i < data.length; i++) {
-                result += String.fromCharCode(data.charCodeAt(i) ^ key);
-            }
-            return result;
-        }
+## Logowanie
+<input type="password" id="password" placeholder="Wpisz hasło..." style="width: 300px; padding: 5px; margin-top: 10px;">
+<button onclick="login()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Zaloguj się</button>
 
-        // Zaszyfrowane dane w postaci tekstu
-        const encryptedData = '¼ÓÛÞÖçÕ';  // Zaszyfrowane dane z Pythona: 'Testowy tekst do zaszyfrowania' z kluczem XOR=123
+<div id="searchSection" style="display: none;">
+    <h3>Wyszukaj nick:</h3>
+    <input type="text" id="searchTerm" placeholder="Wpisz nick..." style="width: 300px; padding: 5px; margin-top: 10px;">
+    <button onclick="searchInFile()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Wyszukaj w pliku</button>
 
-        // Klucz XOR
-        const key = 123;
+    <pre id="results" style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-top: 20px; max-height: 300px; overflow-y: auto;"></pre>
+</div>
 
-        // Deszyfrowanie danych
-        const decryptedData = xorEncryptDecrypt(encryptedData, key);
+<script>
+const encryptedPassword = "34cd46e62013e348841aefceed803cc6918c4b835137ecbb5fa66b3726d0af2b"; // Upewnij się, że jest to poprawny hash
 
-        // Wyświetlanie zaszyfrowanych i deszyfrowanych danych w HTML
-        document.getElementById('encrypted-text').textContent = encryptedData;
-        document.getElementById('decrypted-text').textContent = decryptedData;
-    </script>
-</body>
-</html>
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function login() {
+    const password = document.getElementById('password').value.trim();
+    const hashedInput = await hashPassword(password);
+
+    if (hashedInput === encryptedPassword) {
+        alert("Zalogowano pomyślnie!");
+        document.getElementById('searchSection').style.display = 'block';
+    } else {
+        alert("Błędne hasło!");
+    }
+}
+</script>
