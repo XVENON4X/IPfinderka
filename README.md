@@ -1,6 +1,6 @@
-# IP Finder by VENOM
+# IP Finder by hex z dupy kleks
 
-Wprowadź poniżej nick do wyszukania w pliku `0001.txt`.
+Wprowadź poniżej nick do wyszukania w pliku `sigma sigbmas`.
 
 <input type="text" id="searchTerm" placeholder="Wpisz nick..." style="width: 300px; padding: 5px; margin-top: 10px;">
 <button onclick="searchInFile()" style="padding: 5px 10px; cursor: pointer; margin-left: 10px;">Wyszukaj w pliku</button>
